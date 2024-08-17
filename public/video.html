@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Playback</title>
+</head>
+<body>
+    <h1>Video Playback</h1>
+    <video id="videoPlayer" controls width="640">
+        Your browser does not support the video tag.
+    </video>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoPath = urlParams.get('path');
+
+        if (videoPath) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.src = videoPath;
+        } else {
+            document.body.innerHTML = '<p>No video selected.</p>';
+        }
+    </script>
+</body>
+</html>

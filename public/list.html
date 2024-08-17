@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video List</title>
+</head>
+<body>
+    <h1>Video List</h1>
+    <div id="videoList" style="display: flex; flex-wrap: wrap;"></div>
+
+    <script>
+        fetch('/videos')
+            .then(response => response.json())
+            .then(videos => {
+                const videoList = document.getElementById('videoList');
+                videos.forEach(video => {
+                    const videoItem = document.createElement('div');
+                    videoItem.style.margin = '10px';
+                    videoItem.style.textAlign = 'center';
+
+                    const thumbnail = document.createElement('img');
+                    thumbnail.src = video.thumbnail;
+                    thumbnail.style.width = '150px';
+                    thumbnail.style.cursor = 'pointer';
+                    thumbnail.onclick = () => {
+                        window.location.href = `/video.html?path=/uploads/${video.filename}`;
+                    };
+
+                    const title = document.createElement('p');
+                    title.textContent = video.filename;
+
+                    videoItem.appendChild(thumbnail);
+                    videoItem.appendChild(title);
+                    videoList.appendChild(videoItem);
+                });
+            })
+            .catch(err => {
+                console.error('Failed to load video list:', err);
+            });
+    </script>
+</body>
+</html>

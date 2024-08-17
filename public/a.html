@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Upload</title>
+</head>
+<body>
+    <h1>Video Upload Form</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" id="videoFile" accept="video/*" required>
+        <button type="submit">Upload Video</button>
+    </form>
+    <div id="progressContainer" style="display:none;">
+        <p>Uploading...</p>
+        <progress id="uploadProgress" value="0" max="100"></progress>
+    </div>
+    <div id="resultMessage"></div>
+
+    <script src="a.js"></script>
+</body>
+</html>
