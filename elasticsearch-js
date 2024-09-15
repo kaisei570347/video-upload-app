@@ -1,0 +1,29 @@
+const { Client } = require('@elastic/elasticsearch');
+
+// Elasticsearchクライアントの作成
+const client = new Client({ node: 'http://localhost:9200' });
+
+// データをインデックスに追加（例: インデックス名 'my_index', ドキュメントID '1'）
+async function run() {
+  await client.index({
+    index: 'my_index',
+    id: '1',
+    document: {
+      name: 'Alice',
+      age: 25,
+      occupation: 'Engineer',
+    },
+  });
+
+  // インデックスの検索（例: 'my_index'のすべてのドキュメントを取得）
+  const result = await client.search({
+    index: 'my_index',
+    query: {
+      match_all: {},
+    },
+  });
+
+  console.log(result.hits.hits);
+}
+
+run().catch(console.log);

@@ -6,18 +6,31 @@
     <title>Video Playback</title>
 </head>
 <body>
-    <h1>Video Playback</h1>
+    <h1 id="videoTitle">Video Title</h1>
+    <p id="videoDescription">Video Description</p>
     <video id="videoPlayer" controls width="640">
         Your browser does not support the video tag.
     </video>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const videoPath = urlParams.get('path');
+        const videoId = urlParams.get('id');
 
-        if (videoPath) {
-            const videoPlayer = document.getElementById('videoPlayer');
-            videoPlayer.src = videoPath;
+        if (videoId) {
+            fetch(`/video/${videoId}`)
+                .then(response => response.json())
+                .then(video => {
+                    const videoPlayer = document.getElementById('videoPlayer');
+                    const videoTitle = document.getElementById('videoTitle');
+                    const videoDescription = document.getElementById('videoDescription');
+
+                    videoPlayer.src = `/uploads/${video.filename}`;
+                    videoTitle.textContent = video.title;
+                    videoDescription.textContent = video.description;
+                })
+                .catch(err => {
+                    console.error('Failed to load video details:', err);
+                });
         } else {
             document.body.innerHTML = '<p>No video selected.</p>';
         }

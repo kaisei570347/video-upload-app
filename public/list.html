@@ -20,18 +20,22 @@
                     videoItem.style.textAlign = 'center';
 
                     const thumbnail = document.createElement('img');
-                    thumbnail.src = video.thumbnail;
+                    thumbnail.src = `/thumbnails/${video.filename}.png`;  // 修正された行
                     thumbnail.style.width = '150px';
                     thumbnail.style.cursor = 'pointer';
                     thumbnail.onclick = () => {
-                        window.location.href = `/video.html?path=/uploads/${video.filename}`;
+                        window.location.href = `/video.html?id=${video.id}`;
                     };
 
-                    const title = document.createElement('p');
-                    title.textContent = video.filename;
+                    const title = document.createElement('h3');
+                    title.textContent = video.title;
+
+                    const description = document.createElement('p');
+                    description.textContent = video.description;
 
                     videoItem.appendChild(thumbnail);
                     videoItem.appendChild(title);
+                    videoItem.appendChild(description);
                     videoList.appendChild(videoItem);
                 });
             })
